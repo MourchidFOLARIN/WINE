@@ -52,6 +52,31 @@ function useScrollReveal() {
   }, []);
 }
 
+// Team Card Component with image fallback
+function TeamCard({ name, role, initial, image }) {
+  const [imgError, setImgError] = React.useState(false);
+  const imgUrl = import.meta.env.BASE_URL + `team/${image}`;
+
+  return (
+    <div className="team-card">
+      <div className="avatar-wrapper">
+        {image && !imgError ? (
+          <img
+            src={imgUrl}
+            alt={name}
+            className="team-avatar-img"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          initial
+        )}
+      </div>
+      <div className="team-name">{name}</div>
+      <div className="team-role">{role}</div>
+    </div>
+  );
+}
+
 export default function App() {
   useScrollReveal();
 
@@ -135,7 +160,6 @@ export default function App() {
             <li><a href="#features" className="nav-link" onClick={(e) => { e.preventDefault(); scrollToSection('features'); }}>Fonctionnalités</a></li>
             <li><a href="#pricing" className="nav-link" onClick={(e) => { e.preventDefault(); scrollToSection('pricing'); }}>Tarifs</a></li>
             <li><a href="#roadmap" className="nav-link" onClick={(e) => { e.preventDefault(); scrollToSection('roadmap'); }}>Roadmap</a></li>
-            <li><a href="#team" className="nav-link" onClick={(e) => { e.preventDefault(); scrollToSection('team'); }}>L'Équipe</a></li>
             <li className="mobile-only" style={{ marginTop: '1.5rem', width: '100%' }}>
               <button className="btn btn-primary" style={{ width: '100%' }} onClick={() => scrollToSection('cta')}>Rejoindre la Beta</button>
             </li>
@@ -768,69 +792,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* 8. TEAM SECTION */}
-      <section className="section-padding reveal" id="team" style={{ borderTop: '1px solid var(--border)', background: 'rgba(20, 23, 38, 0.1)' }}>
-        <div className="container">
-          
-          <div className="section-header">
-            <span className="section-tag">L'Équipe</span>
-            <h2 className="section-title">6 builders. 4 projets livrés. 1 mission.</h2>
-          </div>
-
-          <div className="team-subtitle">
-            EXCELLENCE TEAM — LOKOSSA, BENIN
-          </div>
-
-          <div className="team-grid">
-            <div className="team-card">
-              <div className="avatar-wrapper">S</div>
-              <div className="team-name">Sènami</div>
-              <div className="team-role">Lead Developer</div>
-            </div>
-
-            <div className="team-card">
-              <div className="avatar-wrapper">F</div>
-              <div className="team-name">Femi</div>
-              <div className="team-role">Backend / API</div>
-            </div>
-
-            <div className="team-card">
-              <div className="avatar-wrapper">K</div>
-              <div className="team-name">Kofi</div>
-              <div className="team-role">Frontend / UI</div>
-            </div>
-
-            <div className="team-card">
-              <div className="avatar-wrapper">M</div>
-              <div className="team-name">Mawuli</div>
-              <div className="team-role">DevOps / Socket</div>
-            </div>
-
-            <div className="team-card">
-              <div className="avatar-wrapper">P</div>
-              <div className="team-name">Pascal</div>
-              <div className="team-role">Product Manager</div>
-            </div>
-
-            <div className="team-card">
-              <div className="avatar-wrapper">Y</div>
-              <div className="team-name">Yasmine</div>
-              <div className="team-role">QA & Telecoms</div>
-            </div>
-          </div>
-
-          <div className="previous-projects">
-            <div className="prev-title">Nos Réalisations Précédentes</div>
-            <div className="prev-list">
-              <span className="prev-project">Le TWIN</span>
-              <span className="prev-project">Academix</span>
-              <span className="prev-project">Fieri Research</span>
-              <span className="prev-project">La Nuit du Cœur</span>
-            </div>
-          </div>
-
-        </div>
-      </section>
 
       {/* 9. FINAL CTA SECTION */}
       <section className="section-padding reveal" id="cta">
@@ -912,10 +873,9 @@ export default function App() {
             </div>
 
             <div>
-              <h4 className="footer-title">L'Équipe</h4>
+              <h4 className="footer-title">Contact</h4>
               <ul className="footer-links">
-                <li className="footer-link-item"><a href="#team" onClick={(e) => { e.preventDefault(); scrollToSection('team'); }}>Membres</a></li>
-                <li className="footer-link-item"><a href="mailto:teamexecellence@gmail.com">Contact</a></li>
+                <li className="footer-link-item"><a href="mailto:teamexecellence@gmail.com">teamexecellence@gmail.com</a></li>
                 <li className="footer-link-item"><a href="#" onClick={(e) => { e.preventDefault(); alert("WINE v1.0.0-beta - Développé à Lokossa, Bénin."); }}>Version Beta</a></li>
               </ul>
             </div>
