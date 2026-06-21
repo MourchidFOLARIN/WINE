@@ -1,21 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-  MessageSquare, 
-  Eye, 
-  DollarSign, 
-  Check, 
-  CheckSquare, 
-  Users, 
-  Share2, 
-  BarChart3, 
-  ArrowRight, 
-  Lock, 
-  Zap, 
-  Menu, 
-  X, 
-  Send, 
-  Sparkles, 
-  Globe, 
+import {
+  MessageSquare,
+  Eye,
+  DollarSign,
+  Check,
+  CheckSquare,
+  Users,
+  Share2,
+  BarChart3,
+  ArrowRight,
+  Lock,
+  Zap,
+  Menu,
+  X,
+  Send,
+  Sparkles,
+  Globe,
   Award,
   ChevronRight,
   TrendingUp,
@@ -28,7 +28,7 @@ import './App.css';
 function useScrollReveal() {
   useEffect(() => {
     const revealElements = document.querySelectorAll('.reveal');
-    
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -53,9 +53,18 @@ function useScrollReveal() {
 }
 
 // Team Card Component with image fallback
-function TeamCard({ name, role, initial, image }) {
+function TeamCard({ name, role, image }) {
   const [imgError, setImgError] = React.useState(false);
-  const imgUrl = import.meta.env.BASE_URL + `team/${image}`;
+  
+  const isExternal = image && (image.startsWith('http://') || image.startsWith('https://'));
+  const imgUrl = isExternal ? image : (import.meta.env.BASE_URL + `team/${image}`);
+
+  const initials = name
+    .split(' ')
+    .map(n => n[0])
+    .join('')
+    .substring(0, 2)
+    .toUpperCase();
 
   return (
     <div className="team-card">
@@ -68,14 +77,121 @@ function TeamCard({ name, role, initial, image }) {
             onError={() => setImgError(true)}
           />
         ) : (
-          initial
+          <span className="avatar-initials">{initials}</span>
         )}
       </div>
-      <div className="team-name">{name}</div>
-      <div className="team-role">{role}</div>
+      <div className="team-info">
+        <h3 className="team-name">{name}</h3>
+        <div className="team-role">{role}</div>
+      </div>
     </div>
   );
 }
+
+const teamMembers = [
+  {
+    id: 1,
+    name: "Mourchid FOLARIN",
+    role: "Fondateur & Directeur technique / Cybersecurité & Developpement Backend",
+    image: "https://res.cloudinary.com/dla8wr5qj/image/upload/v1781228322/224025435_j7qhdz_szccjx.webp",
+    specialty: "Architecture logicielle & et Sécurité",
+    quote: "Le code est une forme d'art qui doit d'abord servir l'humain tout en garantissant la sécurité des données.",
+    portfolio: "https://mourchidfolarin.vercel.app/"
+  },
+  {
+    id: 2,
+    name: "Octave BAHOUN-HOUTOUKPE",
+    role: "Cofondateur / Ingenieur IA , Fullstack Web (Orienté Frontend)",
+    image: "https://res.cloudinary.com/dla8wr5qj/image/upload/v1781010145/octave_j928uo.webp",
+    specialty: "Direction artistique & UX Premium",
+    quote: "L'excellence réside dans les détails que l'on ne voit pas, mais que l'on ressent.",
+    portfolio: "https://octavebahoun-houtoukpe.vercel.app/"
+  },
+  {
+    id: 3,
+    name: "Ezechiel TADAGBE",
+    role: "Ingénieur Cloud /Infrastructure & IA",
+    image: "https://res.cloudinary.com/dla8wr5qj/image/upload/v1781228322/ezedev_ycavef_ztuq1a.webp",
+    specialty: "DevOps & Cloud Architect",
+    quote: "Bâtir des socles robustes pour libérer le potentiel de l'innovation.",
+    portfolio: "https://ezeckiel.netlify.app/"
+  },
+  {
+    id: 4,
+    name: "Jean-Baptiste VIGNONFODE",
+    role: "Architecte Cybersécurité",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800&auto=format&fit=crop",
+    specialty: "Pentest & Sécurité des S.I",
+    quote: "Dans le monde digital, la confiance est le fruit d'une vigilance invisible.",
+    portfolio: "https://jbportfolio-tau.vercel.app/"
+  },
+  {
+    id: 5,
+    name: "Wasfade TONOUKOIN",
+    role: "Développeur Senior Fullstack",
+    image: "https://res.cloudinary.com/dla8wr5qj/image/upload/v1781228322/wafade_iajqor_hmdpsn.webp",
+    specialty: "Expert Web & Mobile",
+    quote: "Donner vie au digital par le mouvement et l'interaction fluide.",
+    portfolio: "https://wasfolio.vercel.app"
+  },
+  {
+    id: 6,
+    name: "Cosme MISSIKPODE",
+    role: "Architecte Cybersécurité / Réseau",
+    image: "https://res.cloudinary.com/dla8wr5qj/image/upload/v1781228322/cosme_csvugm_yf4nvs.webp",
+    specialty: "Tests d'intrusion & Pentesting",
+    quote: "La sécurité n'est pas une option, c'est la fondation de toute innovation.",
+    portfolio: "#"
+  }
+];
+
+const projectsData = [
+  {
+    id: 1,
+    topLabel: "Août 2025 • INGÉNIERIE DIGITALE",
+    title: "Le TWIN",
+    description: "Plateforme e-commerce pour une marque de mode urbaine béninoise. Expérience d'achat immersive et gestion de catalogue produits.",
+    mainImage: "https://res.cloudinary.com/dla8wr5qj/image/upload/v1773366626/WhatsApp_Image_2026-02-07_at_13.55.04_jb8uve.jpg",
+    thumb1: "https://res.cloudinary.com/dla8wr5qj/image/upload/v1773383601/WhatsApp_Image_2026-03-13_at_07.27.56_3_tng9hq.jpg",
+    thumb2: "https://res.cloudinary.com/dla8wr5qj/image/upload/v1773383601/WhatsApp_Image_2026-03-13_at_07.27.56_nukyzh.jpg",
+    side: "left",
+    url: "https://le-twin.vercel.app/"
+  },
+  {
+    id: 2,
+    topLabel: "Fév 2025 • SAAS & MÉTIER",
+    title: "Academix",
+    description: "Système de gestion scolaire : notes, bulletins automatisés et portail parents pour établissements d'enseignement secondaire.",
+    mainImage: "https://res.cloudinary.com/dla8wr5qj/image/upload/v1775955345/academix_fn4oat.png",
+    thumb1: "https://res.cloudinary.com/dla8wr5qj/image/upload/v1775955350/master_kbxpmf.avif",
+    thumb2: "https://res.cloudinary.com/dla8wr5qj/image/upload/v1775955383/winner_rfjzdb.avif",
+    side: "right",
+    url: "https://team-d-excellence-hackbyifri-2026.vercel.app/"
+  },
+  {
+    id: 3,
+    topLabel: "Mars 2026 • RECHERCHE TECH",
+    title: "Fieri Research",
+    description: "Plateforme collaborative pour la recherche scientifique étudiante. Hub central pour les publications et événements académiques.",
+    mainImage: "https://res.cloudinary.com/dla8wr5qj/image/upload/v1775955620/fieri_pjxyof.webp",
+    thumb1: "https://res.cloudinary.com/dla8wr5qj/image/upload/v1775955702/fieri1_yxrrja.jpg",
+    thumb2: "",
+    side: "left",
+    url: "https://fieri-research.org"
+  },
+  {
+    id: 4,
+    topLabel: "Nov 2023 • ÉVÉNEMENTIEL",
+    title: "La Nuit du Cœur",
+    description: "Vitrine digitale pour un événement artistique à Lokossa. Mise en valeur des talents locaux et billetterie en ligne.",
+    mainImage: "https://res.cloudinary.com/dla8wr5qj/image/upload/v1775955767/nuit_de_coeur_jx18zr.avif",
+    thumb1: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=200",
+    thumb2: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&q=80&w=200",
+    side: "right",
+    url: "https://nightheart.rf.gd/"
+  }
+];
+
 
 export default function App() {
   useScrollReveal();
@@ -141,11 +257,11 @@ export default function App() {
 
   return (
     <div className="app">
-      
+
       {/* 1. NAVBAR */}
       <nav className={`navbar ${isNavbarScrolled ? 'navbar-scrolled' : ''}`}>
         <div className="container">
-          <a href="#" className="logo" onClick={(e) => { e.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'}); }}>
+          <a href="#" className="logo" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
             <svg className="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
               <polygon points="50,12 83,31 83,69 50,88 17,69 17,31" stroke="#6C47FF" strokeWidth="8" strokeLinejoin="round" fill="none" />
               <circle cx="50" cy="40" r="8" fill="#6C47FF" />
@@ -160,6 +276,7 @@ export default function App() {
             <li><a href="#features" className="nav-link" onClick={(e) => { e.preventDefault(); scrollToSection('features'); }}>Fonctionnalités</a></li>
             <li><a href="#pricing" className="nav-link" onClick={(e) => { e.preventDefault(); scrollToSection('pricing'); }}>Tarifs</a></li>
             <li><a href="#roadmap" className="nav-link" onClick={(e) => { e.preventDefault(); scrollToSection('roadmap'); }}>Roadmap</a></li>
+            <li><a href="#team" className="nav-link" onClick={(e) => { e.preventDefault(); scrollToSection('team'); }}>L'Équipe</a></li>
             <li className="mobile-only" style={{ marginTop: '1.5rem', width: '100%' }}>
               <button className="btn btn-primary" style={{ width: '100%' }} onClick={() => scrollToSection('cta')}>Rejoindre la Beta</button>
             </li>
@@ -178,10 +295,10 @@ export default function App() {
       <header className="hero-section">
         <div className="hero-glow-1"></div>
         <div className="hero-glow-2"></div>
-        
+
         <div className="container">
           <div className="hero-grid">
-            
+
             <div className="hero-content reveal">
               <div className="eyebrow">
                 <Sparkles size={14} style={{ marginRight: '0.5rem', color: 'var(--accent-gold)' }} /> Conçu pour les équipes africaines
@@ -192,7 +309,7 @@ export default function App() {
               <p className="hero-desc">
                 WINE unifie vos projets, tâches, communications et réseaux dans un hub intelligent. Un espace de travail performant et économique, pensé pour la réalité des startups, agences et équipes digitales d'Afrique francophone.
               </p>
-              
+
               <div className="hero-actions">
                 <button className="btn btn-primary" onClick={() => scrollToSection('cta')}>
                   Rejoindre la Beta <ArrowRight size={18} />
@@ -205,7 +322,7 @@ export default function App() {
 
             <div className="hero-visual reveal delay-2">
               <div className="dashboard-mockup">
-                
+
                 <div className="mockup-header">
                   <div className="dots">
                     <span className="dot dot-red"></span>
@@ -217,7 +334,7 @@ export default function App() {
                 </div>
 
                 <div className="mockup-body">
-                  
+
                   <div className="mockup-sidebar">
                     <div className="sb-item active" style={{ height: '20px', borderRadius: '6px', background: 'var(--accent-violet)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }} onClick={() => setActiveMockupTab('kanban')}>
                       <CheckSquare size={10} color="#fff" />
@@ -231,14 +348,14 @@ export default function App() {
                   </div>
 
                   <div className="mockup-main">
-                    
+
                     <div className="mockup-top">
                       <div className="mockup-top-bar"></div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                         <span style={{ fontSize: '0.6rem', fontFamily: 'var(--font-mono)', color: 'var(--accent-gold)' }}>
                           {mockupTaskCount} Tâches Finies
                         </span>
-                        <button 
+                        <button
                           onClick={handleAddMockupTask}
                           style={{ background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)', padding: '2px 6px', borderRadius: '4px', fontSize: '0.55rem', color: '#fff', fontWeight: 'bold' }}
                           title="Simuler une tâche terminée"
@@ -255,7 +372,7 @@ export default function App() {
                             <span>À FAIRE</span>
                             <span>2</span>
                           </div>
-                          
+
                           <div className="mockup-card">
                             <span className="mockup-card-title">Sprint Planning</span>
                             <p className="mockup-card-desc">Backlog produit & répartition.</p>
@@ -285,7 +402,7 @@ export default function App() {
                             <span>EN COURS</span>
                             <span>1</span>
                           </div>
-                          
+
                           <div className="mockup-card card-in-progress">
                             <span className="mockup-card-title">Intégration API</span>
                             <p className="mockup-card-desc">Connecter le Kanban à FastAPI.</p>
@@ -349,7 +466,7 @@ export default function App() {
       {/* 3. PROBLEM SECTION */}
       <section className="section-padding reveal">
         <div className="container">
-          
+
           <div className="section-header">
             <span className="section-tag">Le Constat</span>
             <h2 className="section-title">Votre énergie créative mérite mieux que le chaos.</h2>
@@ -392,15 +509,15 @@ export default function App() {
       <section className="section-padding reveal" id="features" style={{ background: 'rgba(20, 23, 38, 0.3)', borderY: '1px solid var(--border)' }}>
         <div className="container">
           <div className="solution-grid">
-            
+
             <div className="solution-left">
               <span className="section-tag">La Solution</span>
               <h2 className="section-title">Un hub ouvert. Natif ou connecté. Toujours unifié.</h2>
-              
+
               <p className="solution-desc">
                 WINE ne vous force pas à choisir. Soit vous utilisez nos outils natifs ultra-performants et légers, soit vous importez vos tableaux et espaces de travail existants en un clic.
               </p>
-              
+
               <p className="solution-accent-text">
                 Un système d'exploitation de travail pensé pour minimiser la consommation de bande passante et maximiser l'efficacité.
               </p>
@@ -466,7 +583,7 @@ export default function App() {
       {/* 5. MODULES SECTION */}
       <section className="section-padding reveal">
         <div className="container">
-          
+
           <div className="section-header">
             <span className="section-tag">Les Fonctionnalités</span>
             <h2 className="section-title">Tout ce dont votre équipe a besoin.</h2>
@@ -474,7 +591,7 @@ export default function App() {
           </div>
 
           <div className="modules-grid">
-            
+
             {/* Card 1 */}
             <div className="module-card">
               <div className="module-top">
@@ -557,7 +674,7 @@ export default function App() {
       {/* 6. PRICING SECTION */}
       <section className="section-padding reveal" id="pricing" style={{ background: 'rgba(20, 23, 38, 0.2)', borderTop: '1px solid var(--border)' }}>
         <div className="container">
-          
+
           <div className="section-header">
             <span className="section-tag">Les Prix</span>
             <h2 className="section-title">Un tarif qui respecte votre réalité.</h2>
@@ -566,13 +683,13 @@ export default function App() {
 
           <div style={{ textAlign: 'center' }}>
             <div className="pricing-toggle">
-              <button 
+              <button
                 className={`pricing-toggle-btn ${!isYearlyBilling ? 'active' : ''}`}
                 onClick={() => setIsYearlyBilling(false)}
               >
                 Mensuel
               </button>
-              <button 
+              <button
                 className={`pricing-toggle-btn ${isYearlyBilling ? 'active' : ''}`}
                 onClick={() => setIsYearlyBilling(true)}
               >
@@ -582,12 +699,12 @@ export default function App() {
           </div>
 
           <div className="pricing-grid">
-            
+
             {/* Plan 1 */}
             <div className="pricing-card">
               <h3 className="pricing-name">Freemium</h3>
               <p className="pricing-desc">Idéal pour tester WINE en équipe réduite et poser les bases de son organisation.</p>
-              
+
               <div className="pricing-price">
                 <span className="price-currency"></span>
                 <span className="price-amount">Gratuit</span>
@@ -623,7 +740,7 @@ export default function App() {
               <span className="popular-badge">Populaire</span>
               <h3 className="pricing-name">Plan Team</h3>
               <p className="pricing-desc">Pour les agences et startups en croissance qui nécessitent une collaboration poussée.</p>
-              
+
               <div className="pricing-price">
                 <span className="price-currency">$</span>
                 <span className="price-amount">{isYearlyBilling ? '12' : '15'}</span>
@@ -662,7 +779,7 @@ export default function App() {
             <div className="pricing-card">
               <h3 className="pricing-name">Enterprise</h3>
               <p className="pricing-desc">Pour les grandes structures et incubateurs exigeant un contrôle maximal.</p>
-              
+
               <div className="pricing-price">
                 <span className="price-currency"></span>
                 <span className="price-amount">Sur devis</span>
@@ -700,7 +817,7 @@ export default function App() {
       {/* 7. ROADMAP SECTION */}
       <section className="section-padding reveal" id="roadmap">
         <div className="container">
-          
+
           <div className="section-header">
             <span className="section-tag">Roadmap</span>
             <h2 className="section-title">L'évolution de WINE.</h2>
@@ -710,9 +827,9 @@ export default function App() {
           <div className="roadmap-container">
             {/* Desktop Timeline */}
             <div className="roadmap-line-desktop"></div>
-            
+
             <div className="roadmap-grid-desktop">
-              
+
               <div className="roadmap-item">
                 <div className="roadmap-node node-done"><Check size={16} /></div>
                 <div className="roadmap-phase-tag">Phase 1</div>
@@ -747,7 +864,7 @@ export default function App() {
 
             {/* Mobile Timeline */}
             <div className="roadmap-timeline-mobile">
-              
+
               <div className="roadmap-item-mobile">
                 <div className="roadmap-node-mobile node-done"><Check size={16} /></div>
                 <div className="roadmap-content-mobile">
@@ -792,12 +909,56 @@ export default function App() {
         </div>
       </section>
 
+      {/* 8. L'EQUIPE (TEAM) SECTION */}
+      <section className="section-padding reveal" id="team">
+        <div className="container">
+
+          <div className="section-header">
+            <span className="section-tag">L'Équipe</span>
+            <h2 className="section-title">Les créateurs derrière WINE.</h2>
+            <p>Un collectif passionné d'étudiants en informatique et télécoms de Lokossa, Bénin, unis pour redéfinir la productivité.</p>
+          </div>
+          <div className="team-subtitle">Lokossa, Bénin</div>
+
+          <div className="team-grid">
+            {teamMembers.map(member => (
+              <TeamCard key={member.id} {...member} />
+            ))}
+          </div>
+
+          <div className="previous-projects">
+            <h3 className="prev-title">Nos Réalisations Précédentes</h3>
+            <div className="prev-list">
+              {projectsData.map(project => (
+                project.url && project.url !== '#' ? (
+                  <a
+                    key={project.id}
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="prev-project"
+                  >
+                    {project.title}
+                  </a>
+                ) : (
+                  <span key={project.id} className="prev-project">
+                    {project.title}
+                  </span>
+                )
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
 
       {/* 9. FINAL CTA SECTION */}
       <section className="section-padding reveal" id="cta">
         <div className="container">
           <div className="cta-box">
-            
+
             <h2 className="cta-title">Prêt à travailler avec excellence ?</h2>
             <p className="cta-subtitle">
               Rejoignez dès aujourd'hui les premières équipes africaines à piloter leur travail autrement. Inscrivez-vous à la version Beta privée gratuite.
@@ -805,10 +966,10 @@ export default function App() {
 
             {!isBetaSubmitted ? (
               <form onSubmit={handleBetaSubmit} className="cta-form">
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   required
-                  placeholder="Entrez votre adresse email..." 
+                  placeholder="Entrez votre adresse email..."
                   className="cta-input"
                   value={betaEmail}
                   onChange={(e) => setBetaEmail(e.target.value)}
@@ -825,7 +986,7 @@ export default function App() {
             )}
 
             <div style={{ marginTop: '2.5rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-              Vous avez des questions ? Contactez-nous à <a href="mailto:teamexecellence@gmail.com" style={{ color: 'var(--text-secondary)', textDecoration: 'underline' }}>teamexecellence@gmail.com</a>
+              Vous avez des questions ? Contactez-nous à <a href="mailto:teamexcellence@gmail.com" style={{ color: 'var(--text-secondary)', textDecoration: 'underline' }}>teamexcellence@gmail.com</a>
             </div>
 
           </div>
@@ -836,9 +997,9 @@ export default function App() {
       <footer className="footer">
         <div className="container">
           <div className="footer-grid">
-            
+
             <div className="footer-brand">
-              <a href="#" className="logo" onClick={(e) => { e.preventDefault(); window.scrollTo({top: 0, behavior: 'smooth'}); }}>
+              <a href="#" className="logo" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
                 <svg className="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <polygon points="50,12 83,31 83,69 50,88 17,69 17,31" stroke="#6C47FF" strokeWidth="8" strokeLinejoin="round" fill="none" />
                   <circle cx="50" cy="40" r="8" fill="#6C47FF" />
@@ -849,7 +1010,7 @@ export default function App() {
                 <span>WINE</span>
               </a>
               <p className="footer-tagline">Work IN Excellence — La plateforme de productivité unifiée pour les équipes digitales d'Afrique.</p>
-              
+
               <div className="social-links">
                 <a href="#" className="social-icon" aria-label="LinkedIn">
                   <span style={{ fontSize: '0.85rem', fontWeight: 'bold' }}>in</span>
@@ -869,13 +1030,14 @@ export default function App() {
                 <li className="footer-link-item"><a href="#features" onClick={(e) => { e.preventDefault(); scrollToSection('features'); }}>Fonctionnalités</a></li>
                 <li className="footer-link-item"><a href="#pricing" onClick={(e) => { e.preventDefault(); scrollToSection('pricing'); }}>Tarifs</a></li>
                 <li className="footer-link-item"><a href="#roadmap" onClick={(e) => { e.preventDefault(); scrollToSection('roadmap'); }}>Roadmap</a></li>
+                <li className="footer-link-item"><a href="#team" onClick={(e) => { e.preventDefault(); scrollToSection('team'); }}>L'Équipe</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="footer-title">Contact</h4>
               <ul className="footer-links">
-                <li className="footer-link-item"><a href="mailto:teamexecellence@gmail.com">teamexecellence@gmail.com</a></li>
+                <li className="footer-link-item"><a href="mailto:teamexcellence@gmail.com">teamexcellence@gmail.com</a></li>
                 <li className="footer-link-item"><a href="#" onClick={(e) => { e.preventDefault(); alert("WINE v1.0.0-beta - Développé à Lokossa, Bénin."); }}>Version Beta</a></li>
               </ul>
             </div>
@@ -923,7 +1085,7 @@ export default function App() {
             position: 'relative',
             boxShadow: 'var(--violet-shadow)'
           }}>
-            <button 
+            <button
               onClick={() => { setShowDemoModal(false); setIsDemoSubmitted(false); setDemoEmail(''); }}
               style={{
                 position: 'absolute',
@@ -942,10 +1104,10 @@ export default function App() {
 
             {!isDemoSubmitted ? (
               <form onSubmit={handleDemoSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   required
-                  placeholder="votre.email@domaine.com" 
+                  placeholder="votre.email@domaine.com"
                   value={demoEmail}
                   onChange={(e) => setDemoEmail(e.target.value)}
                   style={{
@@ -971,9 +1133,9 @@ export default function App() {
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
                   Un email contenant vos accès démo vient d'être envoyé à <strong>{demoEmail}</strong>. Vérifiez votre boîte de réception (et vos spams).
                 </p>
-                <button 
+                <button
                   onClick={() => { setShowDemoModal(false); setIsDemoSubmitted(false); setDemoEmail(''); }}
-                  className="btn btn-secondary" 
+                  className="btn btn-secondary"
                   style={{ marginTop: '1.5rem', width: '100%' }}
                 >
                   Fermer

@@ -66,6 +66,6 @@ npm run build
 
 ## 📞 Contact
 Pour toute question relative à la version Beta ou pour rejoindre le projet :
-- **Email :** teamexecellence@gmail.com
+- **Email :** teamexcellence@gmail.com
 - **Lieu :** Lokossa, Bénin 🇧🇯
 "# WINE" 
